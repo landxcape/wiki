@@ -9,8 +9,8 @@ def index(request):
     })
 
 
-def title(request, title):
-    return render(request, "encyclopedia/title.html", {
+def wiki(request, title):
+    return render(request, "encyclopedia/wiki.html", {
         "title": title,
         "entry": util.get_entry(title)
     })
