@@ -1,10 +1,9 @@
 {% extends "encyclopedia/layout.html" %}
-{% load markdownify %}
 
 {% block title %}
 {{ title }}
 {% endblock title %}
 
 {% block body %}
-{{ entry | markdownify }}
+{{ entry | safe }}
 {% endblock body %}
