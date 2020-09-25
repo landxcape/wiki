@@ -1,4 +1,5 @@
 import re
+from random import choice
 from markdown2 import markdown
 
 from django.shortcuts import render
@@ -36,11 +37,6 @@ def results(request):
     })
 
 
-def new_page(request):
-    return render(request, "encyclopedia/new_page.html", {
-    })
-
-
 def create_new_page(request):
     if request.method == "POST":
         checked = ""
@@ -49,22 +45,24 @@ def create_new_page(request):
         check = re.compile('\\b' + title + '\\b', re.I)
         if not title or not content:
             checked = "Invalid Request Made. Please Review Title and Content."
-            return render(request, "encyclopedia/new_page.html", {
+            return render(request, "encyclopedia/create_new_page.html", {
                 "checked": checked
             })
         elif len(list(filter(check.match, util.list_entries()))) == 0:
             checked = "Saved..."
             util.save_entry(title, content)
-            return render(request, "encyclopedia/new_page.html", {
+            return render(request, "encyclopedia/create_new_page.html", {
                 "checked": checked
             })
         else:
             checked = "TITLE already exists..."
-            return render(request, "encyclopedia/new_page.html", {
+            return render(request, "encyclopedia/create_new_page.html", {
                 "checked": checked,
                 "title": title,
                 "content": content
             })
+    return render(request, "encyclopedia/create_new_page.html", {
+    })
 
 
 def edit_page(request, title):
@@ -80,4 +78,12 @@ def edit_page(request, title):
     return render(request, "encyclopedia/edit_page.html", {
         "title": title,
         "content": util.get_entry(title)
+    })
+
+
+def random_page(request):
+    title = choice(util.list_entries())
+    return render(request, "encyclopedia/wiki.html", {
+        "title": title,
+        "entry": markdown(util.get_entry(title))
     })
