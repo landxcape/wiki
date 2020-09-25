@@ -18,6 +18,23 @@ textarea {
     width: 80%;
 }
 
+button {
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.edit_wiki {
+    text-align: right;
+    padding: 5px;
+}
+
 .main {
     padding: 10px;
 }

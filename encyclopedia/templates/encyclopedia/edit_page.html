@@ -1,17 +1,16 @@
-{% extends 'encyclopedia/layout.html' %}
+{% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-Create New Page
+{{ title }}
 {% endblock title %}
 
 {% block body %}
-<h2>{{ checked }}</h2>
-<h1>Create New Page:</h1>
+<h1>Edit {{ title }}:</h1>
 
-<form action="{% url 'create_new_page' %}" method="POST">
+<form action="{% url 'edit_page' title %}" method="POST">
     {% csrf_token %}
     <label for="title">Page Title:</label><br>
-    <input type="text" name="title" id="title" placeholder="Page Title" value="{{ title }}"><br>
+    <input type="text" name="title" id="title" placeholder="Page Title" value="{{ title }}" readonly><br>
     <label for="content">Page Content:</label><br>
     <textarea name="content" id="content" placeholder="Markdown Content">{{ content }}</textarea>
     <br><br>

@@ -42,10 +42,10 @@ def new_page(request):
 
 
 def create_new_page(request):
-    if request.method == "GET":
+    if request.method == "POST":
         checked = ""
-        title = request.GET["title"]
-        content = request.GET["content"]
+        title = request.POST["title"]
+        content = request.POST["content"]
         check = re.compile('\\b' + title + '\\b', re.I)
         if not title or not content:
             checked = "Invalid Request Made. Please Review Title and Content."
@@ -65,3 +65,19 @@ def create_new_page(request):
                 "title": title,
                 "content": content
             })
+
+
+def edit_page(request, title):
+    if request.method == "POST":
+        title = request.POST["title"]
+        content = request.POST["content"]
+        util.save_entry(title, content)
+        return render(request, "encyclopedia/wiki.html", {
+            "checked": markdown(f"**{title}** Saved.."),
+            "title": title,
+            "entry": markdown(util.get_entry(title))
+        })
+    return render(request, "encyclopedia/edit_page.html", {
+        "title": title,
+        "content": util.get_entry(title)
+    })

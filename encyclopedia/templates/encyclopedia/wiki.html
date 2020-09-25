@@ -5,5 +5,7 @@
 {% endblock title %}
 
 {% block body %}
+<div>{{ checked | safe }}</div>
+<div class="edit_wiki"><a href="{% url 'edit_page' title %}">edit</a></div>
 {{ entry | safe }}
 {% endblock body %}
